@@ -50,9 +50,9 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
     # Read the CSV file and create HTML table rows
     # Leer el archivo CSV y agregar filas a la tabla
     TABLE_LINES=""
-    while IFS=, read -r url description
+    while IFS=, read -r short url description
     do
-        TABLE_LINES+="        <tr><td><a href=\"$url\">$url</a></td><td>$description</td></tr>"
+        TABLE_LINES+="        <tr><td><a href=\"$url\">$short</a></td><td>$description</td></tr>"
     done < $CSV_FILE
     TABLE_ROWS="<div>
           <h2>Useful Links</h2>
