@@ -1,0 +1,18 @@
+### Docker Compose example
+services:
+  mi_netkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sw-luis-palacios/base-netkit
+    hostname: netkit
+    container_name: mi_netkit
+    ports:
+      - "8880:8880"
+      - "9990:9990"
+    environment:
+      - HTTP_PORT=8880
+      - HTTPS_PORT=9990
+      - COMPANY_TITLE=COMPANY
+    volumes:
+      - ./config:/config
