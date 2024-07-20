@@ -2,7 +2,13 @@
 
 ![GitHub action workflow status](https://github.com/SW-Luis-Palacios/base-netkit/actions/workflows/docker-publish.yml/badge.svg)
 
-This Docker container is designed to provide a minimal Linux environment with multiple networking tools and an Nginx web server. Its purpose is to add it as an additional service in any docker-compose project, in the same network, so it's ideal for network testing and diagnostics.
+This Docker container is designed to provide a minimal Linux environment with multiple networking tools and an Nginx web server.
+
+Typical use cases:
+
+- Include it as a service in a existing docker-compose.yml project
+- Use it as bastion to be "inside" your Docker network.
+- Troubleshoot networking from within the docker network.
 
 ## Features
 
