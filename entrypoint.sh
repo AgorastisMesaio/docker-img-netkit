@@ -36,9 +36,36 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
   # It also shows the correct device name as 'prefsrc', with correct IP address.
   CONTAINER_IP=$(ip -j route get 1 | jq -r '.[0] .prefsrc')
 
-  # Copy
+  # Logo
   if [ -f ${CONFIG_ROOT}/logo.svg ]; then
     cp ${CONFIG_ROOT}/logo.svg ${WEB_ROOT}/logo.svg
+  fi
+
+  # Useful Links
+  TABLE_ROWS=""
+  if [ -f ${CONFIG_ROOT}/links.csv ]; then
+    echo "The {CONFIG_ROOT}/links.csv exist!!".
+    CSV_FILE=${CONFIG_ROOT}/links.csv
+
+    # Read the CSV file and create HTML table rows
+    # Leer el archivo CSV y agregar filas a la tabla
+    TABLE_LINES=""
+    while IFS=, read -r url description
+    do
+        TABLE_LINES+="        <tr><td><a href=\"$url\">$url</a></td><td>$description</td></tr>"
+    done < $CSV_FILE
+    TABLE_ROWS="<div>
+          <h2>Useful Links</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Link</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>"
+      TABLE_ROWS+=$TABLE_LINES
+      TABLE_ROWS+=" </tbody></table></div>"
   fi
 
   # Company's default index.html
@@ -48,13 +75,73 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 <head>
     <title>Welcome to ${COMPANY}</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; text-align: center; margin: 0; padding: 0; }
-        .container { padding: 20px; }
-        .logo { margin: 20px auto; width: 100px; }
-        h1 { color: #0056b3; }
-        p { font-size: 1.2em; }
-        .info { margin-top: 20px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: inline-block; }
-        .info p { margin: 5px 0; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .logo {
+            margin: 20px auto;
+            width: 100px;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .info {
+            margin-top: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .info p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            min-width: 400px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #8AC6E7;
+            color: #1F5197;
+        }
+        tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        tr:last-of-type {
+            border-bottom: 2px solid #8AC6E7;
+        }
+        a {
+            color: #175DBF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        td:first-child {
+            white-space: nowrap;
+            width: 1%;
+        }
     </style>
 </head>
 <body>
@@ -63,11 +150,10 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
         <h1>Welcome to ${COMPANY}'s NetKit Container</h1>
         <p>If you see this page, the web server is successfully installed and working.</p>
         <div class="info">
-            <p><strong>Hostname:</strong> ${HOSTNAME}</p>
-            <p><strong>IP Address:</strong> ${CONTAINER_IP}</p>
-            <p><strong>HTTP Port:</strong> ${HTTP_PORT:-80}</p>
-            <p><strong>HTTPS Port:</strong> ${HTTPS_PORT:-443}</p>
+            <p><strong>My hostname (IP):</strong> ${HOSTNAME} (${CONTAINER_IP})</p>
+            <p><strong>My http/https ports:</strong> ${HTTP_PORT:-80}/${HTTPS_PORT:-443}</p>
         </div>
+        $TABLE_ROWS
     </div>
 </body>
 </html>

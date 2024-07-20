@@ -2,13 +2,14 @@
 
 ![GitHub action workflow status](https://github.com/SW-Luis-Palacios/base-netkit/actions/workflows/docker-publish.yml/badge.svg)
 
-This Docker container is designed to provide a minimal Linux environment with multiple networking tools and an Nginx web server.
+This repository contains a `Dockerfile` aimed to create a *base image*. This base image is designed, in this case, to provide a minimal Linux environment with multiple networking tools and an Nginx web server.
 
 Typical use cases:
 
 - Include it as a service in a existing docker-compose.yml project
 - Use it as bastion to be "inside" your Docker network.
 - Troubleshoot networking from within the docker network.
+- Portal to internal URL's in my docker compose project.
 
 ## Features
 
@@ -53,18 +54,25 @@ services:
       - HTTP_PORT=8880
       - HTTPS_PORT=9990
       - COMPANY_TITLE="Company Inc."
+    volumes:
+      - ./dockerfiles/config:/config
     networks:
       - my_network
 ```
 
-You can create optional files that will be consumed by the container. Simply create a subdirectory called `config` and add and optional `index.html` and an optional `logo.svg` files.
+You can create optional files that will be consumed by the container.
 
 ```zsh
 .
 ├── config
 │   ├── index.html
 │   └── logo.svg
+│   └── links.csv
 ```
+
+- `index.html` Will be used instead of the one that is automatically created
+- `logo.svg` Will be shown on the automatically crated index.html file
+- `links.csv` A table will be created inside the index.html file. This CSV is expected to have `url,description` format.
 
 Start your services
 
@@ -97,7 +105,7 @@ If you copy or fork this project here are some usefull tips. This information is
 To build the Docker image, run the following command in the directory containing the Dockerfile:
 
 ```sh
-docker build -t your-github-username/netkit .
+docker build -t netkit .
 or
 docker compose up --build -d
 ```
