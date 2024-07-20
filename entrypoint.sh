@@ -88,7 +88,7 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
         }
         .logo {
             margin: 20px auto;
-            height: 180px;
+            height: 130px;
         }
         h1 {
             color: #0056b3;
