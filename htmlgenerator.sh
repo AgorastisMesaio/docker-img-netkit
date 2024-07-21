@@ -27,6 +27,10 @@ create_content_from_csv() {
             gap: 20px;
             justify-content: center;
         }
+        .applogo {
+            margin: 5px auto;
+            height: 100px;
+        }
         .link-box {
             width: 200px;
             height: 200px;
@@ -79,7 +83,7 @@ EOL
         cat <<EOL >> "$html_file"
         <div class="link-box" onmouseover="showTooltip(event, '$alt')" onmouseout="hideTooltip()">
             <a href="$href" target="_blank">
-                <img src="$logo" alt="$alt">
+                <img src="$logo" alt="$alt" class="applogo">
             </a>
             <a href="$href" target="_blank">$name</a>
         </div>
