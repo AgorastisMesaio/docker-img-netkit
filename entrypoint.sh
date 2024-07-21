@@ -49,7 +49,7 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to ${COMPANY}</title>
+    <title>Welcome to Netkit</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,8 +103,8 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 <body>
     <div class="container">
         <img src="logo.svg" alt="Company Logo" class="logo"/>
-        <h1>Welcome to ${COMPANY}'s NetKit Container</h1>
-        <p>If you see this page, the web server is successfully installed and working.</p>
+        <h1>${TITLE}</h1>
+        <p>${SUBTITLE}</p>
         <div class="info">
             <p><strong>My hostname (IP):</strong> ${HOSTNAME} (${CONTAINER_IP})</p>
             <p><strong>My http/https ports:</strong> ${HTTP_PORT:-80}/${HTTPS_PORT:-443}</p>

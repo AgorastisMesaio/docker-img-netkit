@@ -14,7 +14,8 @@ services:
     environment:
       - HTTP_PORT=8880         # Run nginx http listener on this port
       - HTTPS_PORT=9990        # Run nginx http listener on this port
-      - COMPANY_TITLE=COMPANY  # Titile to show on the default index.html
+      - TITLE=Welcome to Netkit Container  # Titile to show on the default index.html
+      - SUBTITLE=The web server is working
       - ROOT_PASSWORD=rootpass
       - NETKIT_PASSWORD=netkitpass
     volumes:
