@@ -66,6 +66,10 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
             justify-content: center;
             padding: 20px;
         }
+        .logo {
+            margin: 20px auto;
+            height: 130px;
+        }
         h1 {
             color: #0056b3;
         }
