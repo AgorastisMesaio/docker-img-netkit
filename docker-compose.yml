@@ -8,11 +8,14 @@ services:
     hostname: netkit
     container_name: mi_netkit
     ports:
-      - "8880:8880"
-      - "9990:9990"
+      - "8822:22"    # Exposed ssh port
+      - "8880:8880"  # Exposed http port to nginx
+      - "9990:9990"  # Exposed https port to nginx (self certificate)
     environment:
-      - HTTP_PORT=8880
-      - HTTPS_PORT=9990
-      - COMPANY_TITLE=COMPANY
+      - HTTP_PORT=8880         # Run nginx http listener on this port
+      - HTTPS_PORT=9990        # Run nginx http listener on this port
+      - COMPANY_TITLE=COMPANY  # Titile to show on the default index.html
+      - ROOT_PASSWORD=rootpass
+      - NETKIT_PASSWORD=netkitpass
     volumes:
       - ./config:/config

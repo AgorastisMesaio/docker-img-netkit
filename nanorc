@@ -1,0 +1,81 @@
+##
+## This file is copied into /etc/nanorc for a custom nano configuration
+## Create the directories /root/.nano and /home/<your user>/.nano
+##
+## References:
+##  https://www.nano-editor.org
+##
+
+## Save the file on exit, equivalent to ^S (Save) + ^Q (quit)
+## When pressing ^Q it will save and exit!!
+## set saveonexit
+
+## Automatically indents new lines to the same number of tabs/spaces as the previous line
+set autoindent
+
+## Make backup in backup dir of the files. Note, the directory must exist
+set backup
+set backupdir "~/.nano"
+
+## Remember search/replace strings for the next session
+set historylog
+
+## Show line number on the left
+set linenumbers
+
+## Make it compatible with vim's locking method, in case vim is used in parallel
+set locking
+
+## Hide the last line with mini help (for help ^H)
+set nohelp
+
+## Remember the cursor position
+set positionlog
+
+## Tab size and always use spaces
+set tabsize 4
+set tabstospaces
+
+## Allow the Backspace or DEL key to delete the marked region
+set zap
+
+## Show line number, column, and character in the status line
+set constantshow
+set boldtext
+
+## Enable the mouse
+set mouse
+
+## Keyboard to function association
+unbind ^K main
+unbind ^U main
+unbind ^W main
+
+bind ^Space mark main    # Mark (equivalent to using Shift-Keys)
+bind ^C copy main        # Copy
+bind ^X cut main         # Cut
+bind ^V paste all        # Paste
+
+bind ^Q exit all         # Exit (note that I have "saveonexit" active)
+bind ^S savefile main    # Save
+bind ^F whereis all      # Find
+bind ^G findnext all     # Find Next
+bind ^D findprevious all # Find Previous
+bind ^R replace main     # Find and Replace
+bind ^Z undo all         # Undo
+bind ^Y redo all         # Redo
+bind ^J gotoline main    # Go to line,column
+
+unbind M-H all
+bind M-H help all         # ESC H -> Enter help
+bind M-H exit help        # ESC H -> Exit help
+
+# Colors
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,black
+set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
+#set stripecolor ,yellow
+set numbercolor cyan
+set keycolor cyan
+set functioncolor green
