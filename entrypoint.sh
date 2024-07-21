@@ -47,7 +47,7 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
   # Useful Links
   TABLE_ROWS=""
   if [ -f ${CONFIG_ROOT}/links.csv ]; then
-    echo "The {CONFIG_ROOT}/links.csv exist!!".
+    echo "Using ${CONFIG_ROOT}/links.csv to populate index.html!!".
     CSV_FILE=${CONFIG_ROOT}/links.csv
 
     # Read the CSV file and create HTML table rows
