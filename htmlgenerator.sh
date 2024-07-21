@@ -24,16 +24,15 @@ create_content_from_csv() {
         .useful-links-rich {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 10px;
             justify-content: center;
         }
         .applogo {
-            margin: 5px auto;
-            height: 100px;
+            height: 70px;
         }
         .link-box {
-            width: 200px;
-            height: 200px;
+            width: 125px;
+            height: 125px;
             border: 1px solid #dddddd;
             display: flex;
             flex-direction: column;
@@ -42,28 +41,27 @@ create_content_from_csv() {
             position: relative;
             text-align: center;
             background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            box-shadow: 0 4px 5px rgba(0,0,0,0.1);
         }
         .link-box img {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             cursor: pointer;
         }
         .link-box a {
             text-decoration: none;
             color: #00796b;
-            margin-top: 10px;
             font-weight: bold;
             cursor: pointer;
         }
         .tooltip {
             display: none;
             position: absolute;
-            width: 200px;
+            width: 250px;
             background: rgba(0, 0, 0, 0.7);
             color: #fff;
-            padding: 10px;
+            padding: 5px;
             border-radius: 5px;
             text-align: center;
             z-index: 1;

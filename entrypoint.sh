@@ -64,24 +64,23 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
         }
         .logo {
-            margin: 20px auto;
-            height: 130px;
+            margin: 5px auto;
+            height: 90px;
         }
         h1 {
             color: #0056b3;
         }
         p {
-            font-size: 1.2em;
+            font-size: 1.0em;
         }
         .info {
-            margin-top: 20px;
             background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             display: inline-block;
         }
         .info p {
@@ -92,7 +91,7 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
             border: 2px solid #000;
             background-color: #f0f0f0;
             padding: 10px;
-            margin: 20px 0;
+            margin: 10px 0;
         }
         iframe {
             width: 100%;
@@ -103,7 +102,7 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 <body>
     <div class="container">
         <img src="logo.svg" alt="Company Logo" class="logo"/>
-        <h1>${TITLE}</h1>
+        <h2>${TITLE}</h2>
         <p>${SUBTITLE}</p>
         <div class="info">
             <p><strong>My hostname (IP):</strong> ${HOSTNAME} (${CONTAINER_IP})</p>
