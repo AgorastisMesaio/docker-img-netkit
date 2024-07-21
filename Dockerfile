@@ -53,6 +53,9 @@ RUN apk update && apk add --no-cache \
     openrc \
     && rm -rf /var/cache/apk/*
 
+# Rewrite the motd
+RUN echo "Welcome to Netkit!" > /etc/motd
+
 # Needed for our custom nanorc
 ADD nanorc /etc/nanorc
 RUN mkdir /root/.nano
