@@ -155,12 +155,19 @@ echo "NGINX ready http://localhost:${HTTP_PORT}"
 echo "NGINX ready https://localhost:${HTTPS_PORT}"
 
 # Set password of root and netkit
-echo $NETKIT_PASS
 echo "root:${ROOT_PASS}" | chpasswd
 echo "netkit:${NETKIT_PASS}" | chpasswd
 
 # Start SSH server
 /usr/sbin/sshd
 
-# Run nginx
+# Start custom script run.sh
+if [ -f ${CONFIG_ROOT}/run.sh ]; then
+    cp ${CONFIG_ROOT}/run.sh /run.sh
+    chmod +x /run.sh
+    /run.sh
+fi
+
+# Run the arguments from CMD in the Dockerfile
+# In our case we are starting nginx by default
 exec "$@"

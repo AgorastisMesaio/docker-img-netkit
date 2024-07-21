@@ -13,18 +13,19 @@ Typical use cases:
 
 ## Features
 
-- **Nginx Web Server** with support for HTTP and HTTPS (ports configurable via environment variables `HTTP_PORT` and `HTTPS_PORT`).
+- **Nginx Web Server** with support for HTTP and HTTPS
 - **Self-signed SSL certificates**
 - **Multi use knife tool**:
   - **Networking utilities:** curl, wget, dig, nslookup, ip, ifconfig, route, traceroute, tracepath, mtr, tcptraceroute, ping, arp, arping, ps, netstat, gzip, cpio, tar, telnet, tcpdump, jq, bash, iperf3, ethtool, mii-tool, nmap, ss, tshark, ssh, lftp, rsync, scp, netcat, socat, ApacheBench (ab), mysql & postgresql client, git.
   - **Text utilities:** gawk, cut, diff, find, grep, sed, vi editor, wc.
 - **SSHD enabled** for both `root` and `netkit` users.
+- **`/config/run.sh`** You can create your custom bash script that will be called from the `/entrypoint.sh`
 
 ## Usage
 
 ### Consume in your `docker-compose.yml`
 
-This is the typical use case; I want to have a multi use knife in my docker compose project. I use `netkit` as a bastion to troubleshoot and test other containers "from inside" the docker network. Here is an example of a docker-compose.yml project:
+This is the typical use case; I want to have a multi use knife in my docker compose project, using it as a bastion to troubleshoot and test other containers "from inside". Here is an example of a docker-compose.yml project:
 
 ```yaml
 networks:
@@ -73,9 +74,9 @@ You can create optional files that will be consumed by the container.
 │   └── links.csv
 ```
 
-- `index.html` Optional. If you provide one the it will be used instead of the one that is automatically created
-- `logo.svg` Optional. Will be shown on the automatically crageneratedted index.html file
-- `links.csv` Optional. A table will be created inside the automatically generated index.html file. This CSV is expected to have `short-name,url,description` format.
+- `index.html` Optional. Use it if present, otherwise, generate one automatically.
+- `logo.svg` Optional. If present, use it in the automatically generated index.html file
+- `links.csv` Optional. If present will be used in the automatically generated index.html. A table will be created. This CSV is expected to have `logo,url,short-name,description` format.
 
 Start your services
 
@@ -87,13 +88,13 @@ In our example, you can now connect to [http://localhost:8880](http://localhost:
 
 ![Browser to the web server](./.assets/00.web.png)
 
-You can use SSH, with either `root` or `netkit` users
+You can use SSH, with either `root` or `netkit`.
 
 ```zsh
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 8822 netkit@localhost
 ```
 
-You can connect to the container directly
+Otherwise, connect to the container directly
 
 ```zsh
 docker exec -it netkit /bin/bash

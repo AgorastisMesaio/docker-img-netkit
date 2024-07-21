@@ -134,5 +134,7 @@ EXPOSE 80 443 22
 # Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
 
-# Command that will be executed through our entrypoint
+# The CMD line represent the Arguments that will be passed to the
+# /entrypoint.sh. We'll use them to indicate the script what
+# command will be executed through our entrypoint when it finishes
 CMD ["nginx", "-g", "daemon off;"]
