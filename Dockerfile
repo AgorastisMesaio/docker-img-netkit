@@ -123,9 +123,10 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
     echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
     echo "AllowUsers root netkit" >> /etc/ssh/sshd_config
 
-# Copy entrypoint script
+# Copy entrypoint and htmlgenerator scripts
 ADD entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+ADD htmlgenerator.sh /htmlgenerator.sh
+RUN chmod +x /entrypoint.sh /htmlgenerator.sh
 
 # Expose necessary ports
 EXPOSE 80 443 22

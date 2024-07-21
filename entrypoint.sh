@@ -8,9 +8,9 @@
 #
 
 # Variables
-CONFIG_ROOT=/config
+export CONFIG_ROOT=/config
 CONFIG_ROOT_MOUNT_CHECK=$(mount | grep ${CONFIG_ROOT})
-WEB_ROOT=/var/www/html
+export WEB_ROOT=/var/www/html
 WEB_ROOT_MOUNT_CHECK=$(mount | grep ${WEB_ROOT})
 HOSTNAME=$(hostname)
 COMPANY="${COMPANY_TITLE:-localhost}"
@@ -44,33 +44,6 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
     cp ${CONFIG_ROOT}/logo.svg ${WEB_ROOT}/logo.svg
   fi
 
-  # Useful Links
-  TABLE_ROWS=""
-  if [ -f ${CONFIG_ROOT}/links.csv ]; then
-    echo "Using ${CONFIG_ROOT}/links.csv to populate index.html!!".
-    CSV_FILE=${CONFIG_ROOT}/links.csv
-
-    # Read the CSV file and create HTML table rows
-    # Leer el archivo CSV y agregar filas a la tabla
-    TABLE_LINES=""
-    while IFS=, read -r short url description
-    do
-        TABLE_LINES+="        <tr><td><a href=\"$url\">$short</a></td><td>$description</td></tr>"
-    done < $CSV_FILE
-    TABLE_ROWS="<div>
-          <h2>Useful Links</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Link</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>"
-      TABLE_ROWS+=$TABLE_LINES
-      TABLE_ROWS+=" </tbody></table></div>"
-  fi
-
   # Company's default index.html
   cat << EOF > ${WEB_ROOT}/index.html
 <!DOCTYPE html>
@@ -87,11 +60,11 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
             padding: 0;
         }
         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-        }
-        .logo {
-            margin: 20px auto;
-            height: 130px;
         }
         h1 {
             color: #0056b3;
@@ -110,57 +83,41 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
         .info p {
             margin: 5px 0;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .frame {
+            width: 80%;
+            border: 2px solid #000;
+            background-color: #f0f0f0;
+            padding: 10px;
             margin: 20px 0;
-            font-size: 1em;
-            min-width: 400px;
         }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #8AC6E7;
-            color: #1F5197;
-        }
-        tr {
-            border-bottom: 1px solid #dddddd;
-        }
-        tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-        tr:last-of-type {
-            border-bottom: 2px solid #8AC6E7;
-        }
-        a {
-            color: #175DBF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        td:first-child {
-            white-space: nowrap;
-            width: 1%;
+        iframe {
+            width: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="logo.svg" alt="Company Logo" class="logo"/>
-        <h1>Welcome to ${COMPANY}'s NetKit Container</h1>
-        <p>If you see this page, the web server is successfully installed and working.</p>
-        <div class="info">
-            <p><strong>My hostname (IP):</strong> ${HOSTNAME} (${CONTAINER_IP})</p>
-            <p><strong>My http/https ports:</strong> ${HTTP_PORT:-80}/${HTTPS_PORT:-443}</p>
+        <div class="frame">
+            <iframe src="table.html" id="contentFrame" onload="resizeIframe(this)"></iframe>
         </div>
-        $TABLE_ROWS
     </div>
+    <script>
+        function resizeIframe(iframe) {
+            iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
+        }
+    </script>
 </body>
 </html>
 EOF
+
+  # Useful Links
+  if [ -f ${CONFIG_ROOT}/links.csv ]; then
+    CSV_FILE=${CONFIG_ROOT}/links.csv
+    echo "Using ${CSV_FILE} to populate index.html!!"
+    /htmlgenerator.sh ${CSV_FILE}
+    mv table.html /var/www/html
+  fi
 
 else
   # Inform only
