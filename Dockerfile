@@ -5,7 +5,7 @@
 #
 FROM alpine:latest
 
-LABEL org.opencontainers.image.authors="Luis Palacios Derqui"
+LABEL org.opencontainers.image.authors="Luis Palacios"
 
 # Install necessary tools
 RUN apk update && apk add --no-cache \
@@ -97,8 +97,7 @@ RUN mkdir -p /run/nginx /var/www/html
 
 # Copy configuration files and scripts
 ADD nginx.conf /etc/nginx/nginx.conf
-ADD config/index.html /var/www/html/index.html
-ADD config/logo.svg /var/www/html/
+ADD index.html /var/www/html/index.html
 
 # Set environment variables for ports
 ENV HTTP_PORT=80

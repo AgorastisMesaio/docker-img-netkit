@@ -28,8 +28,8 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
   CONTAINER_IP=$(ip -j route get 1 | jq -r '.[0] .prefsrc')
 
   # Logo
-  if [ -f ${CONFIG_ROOT}/custom/logo.svg ]; then
-    cp ${CONFIG_ROOT}/custom/logo.svg ${WEB_ROOT}/logo.svg
+  if [ -f ${CONFIG_ROOT}/logo.svg ]; then
+    cp ${CONFIG_ROOT}/logo.svg ${WEB_ROOT}/logo.svg
   fi
 
   # Company's default index.html
@@ -110,10 +110,10 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 EOF
 
   # Useful Links
-  if [ -f ${CONFIG_ROOT}/custom/links.csv ]; then
-    CSV_FILE=${CONFIG_ROOT}/custom/links.csv
+  if [ -f ${CONFIG_ROOT}/links.csv ]; then
+    CSV_FILE=${CONFIG_ROOT}/links.csv
     echo "Using ${CSV_FILE} to populate index.html!!"
-    ${CONFIG_ROOT}/custom/htmlgenerator.sh ${CONFIG_ROOT}/custom/${CSV_FILE}
+    ${CONFIG_ROOT}/htmlgenerator.sh ${CONFIG_ROOT}/${CSV_FILE}
     mv table.html /var/www/html
   fi
 
