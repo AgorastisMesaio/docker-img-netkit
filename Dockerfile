@@ -51,6 +51,7 @@ RUN apk update && apk add --no-cache \
     cpio \
     tar \
     openrc \
+    go \
     && rm -rf /var/cache/apk/*
 
 # Rewrite the motd
