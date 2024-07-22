@@ -114,7 +114,7 @@ EOF
     CSV_FILE=${CONFIG_ROOT}/links.csv
     echo "Using ${CSV_FILE} to populate index.html!!"
     chmod +x ${CONFIG_ROOT}/htmlgenerator.sh
-    . ${CONFIG_ROOT}/htmlgenerator.sh ${CONFIG_ROOT}/${CSV_FILE}
+    . ${CONFIG_ROOT}/htmlgenerator.sh ${CSV_FILE}
     mv table.html /var/www/html
   fi
 
