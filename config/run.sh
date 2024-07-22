@@ -113,7 +113,8 @@ EOF
   if [ -f ${CONFIG_ROOT}/links.csv ]; then
     CSV_FILE=${CONFIG_ROOT}/links.csv
     echo "Using ${CSV_FILE} to populate index.html!!"
-    ${CONFIG_ROOT}/htmlgenerator.sh ${CONFIG_ROOT}/${CSV_FILE}
+    chmod +x ${CONFIG_ROOT}/htmlgenerator.sh
+    . ${CONFIG_ROOT}/htmlgenerator.sh ${CONFIG_ROOT}/${CSV_FILE}
     mv table.html /var/www/html
   fi
 
