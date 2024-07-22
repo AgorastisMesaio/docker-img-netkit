@@ -14,7 +14,6 @@ CONFIG_ROOT_MOUNT_CHECK=$(mount | grep ${CONFIG_ROOT})
 export WEB_ROOT=/var/www/html
 WEB_ROOT_MOUNT_CHECK=$(mount | grep ${WEB_ROOT})
 HOSTNAME=$(hostname)
-COMPANY="${COMPANY_TITLE:-localhost}"
 
 # If the html directory is mounted, it means user has mounted some content in it.
 # In that case, we must not over-write the index.html file.
@@ -90,8 +89,8 @@ if [ -z "${WEB_ROOT_MOUNT_CHECK}" ] ; then
 <body>
     <div class="container">
         <img src="logo.svg" alt="Company Logo" class="logo"/>
-        <h2>${TITLE}</h2>
-        <p>${SUBTITLE}</p>
+        <h2>Welcome to Netkit Container</h2>
+        <p>The web server is working</p>
         <div class="info">
             <p><strong>My hostname (IP):</strong> ${HOSTNAME} (${CONTAINER_IP})</p>
             <p><strong>My http/https ports:</strong> ${HTTP_PORT:-80}/${HTTPS_PORT:-443}</p>
