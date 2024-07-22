@@ -125,7 +125,6 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
 
 # Copy entrypoint and htmlgenerator scripts
 ADD entrypoint.sh /entrypoint.sh
-ADD htmlgenerator.sh /htmlgenerator.sh
 RUN chmod +x /entrypoint.sh /htmlgenerator.sh
 
 # Expose necessary ports
