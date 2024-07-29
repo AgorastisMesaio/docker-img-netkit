@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guacamole: URLs to Active Clients</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 90%;
+        }
+        .info-box-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+        .info-box {
+            background-color: #fffef5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap; /* Preserve whitespace formatting */
+            text-align: left;
+            line-height: 1; /* Reduce the line height */
+            border-radius: 10px;
+            width: 90%;
+        }
+        .table-container {
+            padding-top: 10px;
+            overflow-x: auto;
+        }
+        .table {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            font-size: 0.8rem;
+        }
+        .table th {
+            background-color: #8AC6E7;
+            color: #18355E;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            height: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/static/logo.svg" alt="Logo">
+        </div>
+        <h1>Guacamole URLs to active clients</h1>
+        This page is informative only. Here you can find the discovered Guacamole's clients (internal to this docker network).
+        <br>
+        <hr>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Protocol</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .connections}}
+                    <tr>
+                        <td>{{.Identifier}}</td>
+                        <td>{{.Name}}</td>
+                        <td>{{.Protocol}}</td>
+                        <td><a href="{{ .Identifier | connectionURL }}" target="_blank">{{ .Identifier | connectionURL }}</a></td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <br>
+        <center><p>Example, get the list from a shell</p></center>
+        <div class="info-box-wrapper">
+            <div class="info-box">
+# GET TOKEN:
+curl -s -X POST -d "username=guacadmin&password=guacadmin" \ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;"http://localhost:8080/guacamole/api/tokens"<br>
+<br>
+# GET CONNECTIONS:
+curl -s -G \ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;"http://localhost:8080/guacamole/api/session/data/postgresql/connections" \ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;--data-urlencode "token=&lt;PUT_HERE_THE_TOKEN&gt;"
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

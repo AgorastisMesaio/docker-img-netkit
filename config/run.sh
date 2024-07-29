@@ -125,3 +125,10 @@ else
   echo -e "Company Netkit - ${HOSTNAME} - ${CONTAINER_IP} - HTTP: ${HTTP_PORT:-80} , HTTPS: ${HTTPS_PORT:-443}"
 fi
 
+# Guacamole connections
+WEB_APP="/var/www/goapp"
+if [ -f ${WEB_APP}/gc_connections ]; then
+    cd ${WEB_APP}
+    echo Launching gc_connections
+    ./gc_connections -port "9090" -url "http://localhost:8080/guacamole" -username "guacadmin" -password "guacadmin" &
+fi

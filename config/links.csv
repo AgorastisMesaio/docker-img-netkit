@@ -1,2 +1,3 @@
 appgoogle.png,http://www.google.com,Google,Google search engine
 appyahoo.png,http://www.yahoo.com,Yahoo,Web services provider that offers both a search engine and a directory of World Wide Web pages
+appvdi.svg,http://localhost:9090/,VDI Clients,Guacamole internal URL's to active clients

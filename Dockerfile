@@ -1,5 +1,16 @@
 # Dockerfile for NetKit
 #
+# Compile a small Go program that will create a list of discovered links
+#
+FROM golang:alpine AS build
+WORKDIR /var/www/goapp
+RUN mkdir /var/www/goapp/static
+COPY config/gc_connections/. .
+COPY config/logo.svg /var/www/goapp/static
+RUN go mod init gc_connections
+RUN go mod tidy
+RUN go build -o /go/bin/gc_connections
+
 # This Dockerfile sets up a minimal Alpine Linux container with multiple networking tools
 # and an Nginx web server, designed for network testing and diagnostics.
 #
@@ -117,6 +128,10 @@ RUN mkdir -p /home/netkit/.ssh && \
 
 # Switch back to root for further configurations
 USER root
+
+# Install the small Go app
+COPY --from=build /var/www/goapp /var/www/goapp
+COPY --from=build /go/bin/gc_connections /var/www/goapp
 
 # Configure SSHD
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
