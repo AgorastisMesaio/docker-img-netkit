@@ -1,6 +1,6 @@
 # NetKit Container
 
-![GitHub action workflow status](https://github.com/SW-Luis-Palacios/base-netkit/actions/workflows/docker-publish.yml/badge.svg)
+![GitHub action workflow status](https://github.com/AgorastisMesaio/docker-img-netkit/actions/workflows/docker-publish.yml/badge.svg)
 
 This repository contains a `Dockerfile` aimed to create a *base image* to provide a minimal Linux environment with multiple networking tools and an Nginx web server so you have a multi use knife tool.
 
@@ -45,7 +45,7 @@ services:
       - my_network
 
   netkit:
-    image: ghcr.io/sw-luis-palacios/base-netkit:main
+    image: ghcr.io/agorastismesaio/docker-img-netkit:main
     hostname: netkit.company.com
     container_name: netkit
     ports:
@@ -103,7 +103,7 @@ docker exec -it netkit /bin/bash
 Alternatively you might want to run the container in a oneliner, using default variables (ports, users passwords, etc), like:
 
 ```sh
-docker run --rm -d --name netkit ghcr.io/sw-luis-palacios/base-netkit:main
+docker run --rm -d --name netkit ghcr.io/agorastismesaio/docker-img-netkit:main
 ```
 
 ## For developers
@@ -123,5 +123,5 @@ docker compose up --build -d
 ### Troubleshoot
 
 ```sh
-docker run --rm -it --entrypoint /bin/bash --name mi_netkit --hostname netkit sw-luis-palacios/base-netkit:latest
+docker run --rm -it --entrypoint /bin/bash --name mi_netkit --hostname netkit agorastismesaio/docker-img-netkit:latest
 ```

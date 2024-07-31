@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sw-luis-palacios/base-netkit
+    image: agorastismesaio/docker-img-netkit
     hostname: netkit
     container_name: mi_netkit
     ports:
