@@ -4,8 +4,8 @@
 #
 FROM golang:alpine AS build
 WORKDIR /var/www/goapp
-RUN mkdir /var/www/goapp/static
 COPY config/gc_connections/. .
+RUN mkdir /var/www/goapp/static
 COPY config/logo.svg /var/www/goapp/static
 RUN go mod init gc_connections
 RUN go mod tidy
