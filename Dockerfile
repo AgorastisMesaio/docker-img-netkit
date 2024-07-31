@@ -16,7 +16,7 @@ RUN go build -o /go/bin/gc_connections
 #
 FROM alpine:latest
 
-LABEL org.opencontainers.image.authors="Luis Palacios"
+LABEL org.opencontainers.image.authors="Agorastis Mesaio"
 
 # Install necessary tools
 RUN apk update && apk add --no-cache \
