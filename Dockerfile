@@ -143,7 +143,7 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Expose necessary ports
-EXPOSE 80 443 22
+# EXPOSE 80 443 22
 
 # Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
