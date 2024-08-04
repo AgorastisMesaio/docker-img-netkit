@@ -17,7 +17,7 @@ services:
       - HTTPS_PORT=443        # Run nginx http listener on this port
       - TITLE=Welcome to Netkit Container  # Titile to show on the default index.html
       - SUBTITLE=The web server is working
-      - ROOT_PASSWORD=rootpass
-      - NETKIT_PASSWORD=netkitpass
+      - ROOT_PASSWORD=password
+      - ADMIN_PASSWORD=password
     volumes:
       - ./config:/config

@@ -15,7 +15,7 @@ WEB_ROOT_MOUNT_CHECK=$(mount | grep ${WEB_ROOT})
 HOSTNAME=$(hostname)
 COMPANY="${COMPANY_TITLE:-localhost}"
 ROOT_PASS="${ROOT_PASSWORD:-password}"
-NETKIT_PASS="${NETKIT_PASSWORD:-password}"
+ADMIN_PASS="${ADMIN_PASSWORD:-password}"
 
 # Generate self-signed certificates if they don't exist
 if [ ! -f /etc/nginx/ssl/nginx.crt ]; then
@@ -45,9 +45,9 @@ fi
 echo "NGINX ready http://localhost:${HTTP_PORT}"
 echo "NGINX ready https://localhost:${HTTPS_PORT}"
 
-# Set password of root and netkit
+# Set password of root and admin
 echo "root:${ROOT_PASS}" | chpasswd
-echo "netkit:${NETKIT_PASS}" | chpasswd
+echo "admin:${ADMIN_PASS}" | chpasswd
 
 # Start SSH server
 /usr/sbin/sshd

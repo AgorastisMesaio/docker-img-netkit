@@ -95,11 +95,11 @@ EOF
 # Make the e file executable
 RUN chmod +x /usr/bin/e
 
-# Create a 'netkit' user and assign to the sudo group
-RUN adduser -D -s /bin/bash netkit && adduser netkit wheel
+# Create a 'admin' user and assign to the sudo group
+RUN adduser -D -s /bin/bash admin && adduser admin wheel
 
-# Allow the 'netkit' user to execute sudo commands without a password
-RUN echo 'netkit ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Allow the 'admin' user to execute sudo commands without a password
+RUN echo 'admin ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # In parallel su must be suid to work properly
 RUN chmod u+s /bin/su
@@ -115,16 +115,16 @@ ADD index.html /var/www/html/index.html
 ENV HTTP_PORT=80
 ENV HTTPS_PORT=443
 
-# Generate SSH key pair for 'netkit' user
-USER netkit
-RUN mkdir /home/netkit/.nano
-RUN mkdir -p /home/netkit/.ssh && \
-    ssh-keygen -t ed25519 -f /home/netkit/.ssh/id_ed25519 -N "" && \
-    cat /home/netkit/.ssh/id_ed25519.pub > /home/netkit/.ssh/authorized_keys && \
-    chmod 600 /home/netkit/.ssh/id_ed25519 && \
-    chmod 644 /home/netkit/.ssh/id_ed25519.pub && \
-    chmod 700 /home/netkit/.ssh && \
-    chmod 644 /home/netkit/.ssh/authorized_keys
+# Generate SSH key pair for 'admin' user
+USER admin
+RUN mkdir /home/admin/.nano
+RUN mkdir -p /home/admin/.ssh && \
+    ssh-keygen -t ed25519 -f /home/admin/.ssh/id_ed25519 -N "" && \
+    cat /home/admin/.ssh/id_ed25519.pub > /home/admin/.ssh/authorized_keys && \
+    chmod 600 /home/admin/.ssh/id_ed25519 && \
+    chmod 644 /home/admin/.ssh/id_ed25519.pub && \
+    chmod 700 /home/admin/.ssh && \
+    chmod 644 /home/admin/.ssh/authorized_keys
 
 # Switch back to root for further configurations
 USER root
@@ -136,7 +136,7 @@ COPY --from=build /go/bin/gc_connections /var/www/goapp
 # Configure SSHD
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
     echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
-    echo "AllowUsers root netkit" >> /etc/ssh/sshd_config
+    echo "AllowUsers root admin" >> /etc/ssh/sshd_config
 
 # Copy entrypoint and htmlgenerator scripts
 ADD entrypoint.sh /entrypoint.sh

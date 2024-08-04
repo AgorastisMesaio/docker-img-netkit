@@ -18,7 +18,7 @@ Typical use cases:
 - **Multi use knife tool**:
   - **Networking utilities:** curl, wget, dig, nslookup, ip, ifconfig, route, traceroute, tracepath, mtr, tcptraceroute, ping, arp, arping, ps, netstat, gzip, cpio, tar, telnet, tcpdump, jq, bash, iperf3, ethtool, mii-tool, nmap, ss, tshark, ssh, lftp, rsync, scp, netcat, socat, ApacheBench (ab), mysql & postgresql client, git.
   - **Text utilities:** gawk, cut, diff, find, grep, sed, vi editor, wc.
-- **SSHD enabled** for both `root` and `netkit` users.
+- **SSHD enabled** for both `root` and `admin` users.
 - **`/config/run.sh`** You can create your custom bash script that will be called from the `/entrypoint.sh`
 
 ## Usage
@@ -57,7 +57,7 @@ services:
       - HTTPS_PORT=9990           # Run nginx http listener on this port
       - COMPANY_TITLE=Company Inc # Titile to show on the default index.html
       - ROOT_PASSWORD=rootpass
-      - NETKIT_PASSWORD=netkitpass
+      - ADMIN_PASSWORD=netkitpass
     volumes:
       - ./dockerfiles/config:/config
     networks:
@@ -88,10 +88,10 @@ In our example, you can now connect to [http://localhost:8880](http://localhost:
 
 ![Browser to the web server](./.assets/00.web.png)
 
-You can use SSH, with either `root` or `netkit`.
+You can use SSH, with either `root` or `admin`.
 
 ```zsh
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 8822 netkit@localhost
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 8822 admin@localhost
 ```
 
 Otherwise, connect to the container directly
