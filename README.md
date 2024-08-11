@@ -110,7 +110,7 @@ docker run --rm -d --name netkit ghcr.io/agorastismesaio/docker-img-netkit:main
 
 If you copy or fork this project to create their own base image, instead of consuming the image itself.
 
-### Building the Image
+### Building & running the Image
 
 To build the Docker image, run the following command in the directory containing the Dockerfile:
 
@@ -118,6 +118,10 @@ To build the Docker image, run the following command in the directory containing
 docker build -t netkit .
 or
 docker compose up --build -d
+```
+
+```sh
+docker run --rm -it --name mi_netkit --hostname netkit netkit:latest
 ```
 
 ### Troubleshoot

@@ -138,12 +138,29 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
     echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
     echo "AllowUsers root admin" >> /etc/ssh/sshd_config
 
-# Copy entrypoint and htmlgenerator scripts
+# Copy entrypoint
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Expose necessary ports
-# EXPOSE 80 443 22
+# Copy healthcheck
+ADD healthcheck.sh /healthcheck.sh
+RUN chmod +x /healthcheck.sh
+
+# My custom health check
+# I'm calling /healthcheck.sh so my container will report 'healthy' instead of running
+# --interval=30s: Docker will run the health check every 'interval'
+# --timeout=10s: Wait 'timeout' for the health check to succeed.
+# --start-period=3s: Wait time before first check. Gives the container some time to start up.
+# --retries=3: Retry check 'retries' times before considering the container as unhealthy.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=3s --retries=3 \
+  CMD /healthcheck.sh || exit $?
+
+# Expose my ports
+# 22   ssh port
+# 80   http port to nginx
+# 443  https port to nginx (self certificate)
+# 9090 gc_connections
+EXPOSE 22 80 443 9090
 
 # Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
@@ -152,3 +169,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 # /entrypoint.sh. We'll use them to indicate the script what
 # command will be executed through our entrypoint when it finishes
 CMD ["nginx", "-g", "daemon off;"]
+
