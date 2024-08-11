@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-# Functions
+# Test an HTTP site, return any error or http error
 curl_test() {
     MSG=$1
     ERR=$2
     URL=$3
-    # Test gc_connections, HTTP port 9090
     echo -n ${MSG}
     http_code=`curl -o /dev/null -s -w "%{http_code}\n" ${URL}`
     ret=$?
