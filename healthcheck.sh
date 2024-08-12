@@ -27,7 +27,8 @@ export ERR_MSG="Error testing SSH ${HOSTNAME}:22"
 echo " Ok."
 
 # Test nginx, HTTP port 80
-curl_test "Test nginx http" "Error testing ${HOSTNAME}:80" "http://${HOSTNAME}:80" || { ret=${?}; exit ${ret}; }
+PORT=80
+curl_test "Test nginx http" "Error testing supervisord :${PORT}" "http://${HOSTNAME}:${PORT}" || { ret=${?}; exit ${ret}; }
 echo " Ok."
 
 # Test nginx, HTTPS port 443
@@ -37,7 +38,8 @@ echo "GET / HTTP/1.0" | openssl s_client -connect ${HOSTNAME}:443 > /dev/null 2>
 echo " Ok."
 
 # Test gc_connections, HTTP port 9090
-curl_test "Test gc_connections service" "Error testing ${HOSTNAME}:9090" "http://${HOSTNAME}:9090" || { ret=${?}; exit ${ret}; }
+PORT=9090
+curl_test "Test gc_connections service" "Error testing supervisord :${PORT}" "http://${HOSTNAME}:${PORT}" || { ret=${?}; exit ${ret}; }
 echo " Ok."
 
 # All passed
