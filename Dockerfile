@@ -63,6 +63,7 @@ RUN apk update && apk add --no-cache \
     tar \
     openrc \
     go \
+    docker \
     && rm -rf /var/cache/apk/*
 
 # Rewrite the motd
