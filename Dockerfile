@@ -64,6 +64,7 @@ RUN apk update && apk add --no-cache \
     openrc \
     go \
     docker \
+    htop \
     && rm -rf /var/cache/apk/*
 
 # Rewrite the motd
